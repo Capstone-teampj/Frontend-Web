@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 export default function PayPage() {
   const searchParams = useSearchParams();
-
+  const router = useRouter();
   const items = searchParams.get("items")
     ? JSON.parse(searchParams.get("items"))
     : [];
@@ -36,7 +36,7 @@ export default function PayPage() {
       <button
         className="w-full py-3 mt-6 bg-teal-600 text-white text-lg font-bold rounded-lg hover:bg-teal-700"
         onClick={() => {
-          alert("결제가 완료되었습니다!");
+          router.push("paymentSuccess");
         }}
       >
         결제하기
