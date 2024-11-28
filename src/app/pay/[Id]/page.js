@@ -35,7 +35,9 @@ export default function PayPage() {
 
       <button
         className="w-full py-3 mt-6 bg-teal-600 text-white text-lg font-bold rounded-lg hover:bg-teal-700"
-        onClick={() => alert("결제가 완료되었습니다!")}
+        onClick={() => {
+          alert("결제가 완료되었습니다!");
+        }}
       >
         결제하기
       </button>
