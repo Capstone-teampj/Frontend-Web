@@ -13,7 +13,7 @@ export default function Page() {
   const router = useRouter();
   const { Id } = useParams();
   useEffect(() => {
-    fetch(`/api/menus/store/${Id}`, {
+    fetch(url + `/api/menus/store/${Id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         accept: "*/*",
