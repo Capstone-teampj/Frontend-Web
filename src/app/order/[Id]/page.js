@@ -1,5 +1,5 @@
 "use client";
-import nextConfig from "../../../../next.config.mjs";
+import nextConfig from "../../../../next.config.js";
 import "../../../../styles/globals.css";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
