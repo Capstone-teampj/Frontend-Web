@@ -1,4 +1,5 @@
 "use client";
+import nextConfig from "../../../../next.config.mjs";
 import "../../../../styles/globals.css";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -13,12 +14,17 @@ export default function Page() {
   const router = useRouter();
   const { Id } = useParams();
   useEffect(() => {
-    fetch(url + `/api/menus/store/${Id}`, {
+    fetch(`/api/menus/store/${Id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         accept: "*/*",
       },
     })
+      // fetch(`/api/order/${Id}`, {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // })
       .then((response) => response.json())
       .then((data) => setMenu(data))
       .catch((error) => console.log(error));
