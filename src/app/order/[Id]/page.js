@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 export default function Page() {
-  const url = "http://localhost:8080";
+  const url = "http://192.168.161.24:8080";
   const token =
     "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNkIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTczMjc3MDY3MywiZXhwIjoxNzMyODU3MDczfQ.cfAsAod1XFjffFEdVxgkAO8oqDtMw5CkoC5GyzAb0rA";
   const [menu, setMenu] = useState([]);

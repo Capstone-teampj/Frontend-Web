@@ -36,7 +36,7 @@ export default function PayPage() {
       <button
         className="w-full py-3 mt-6 bg-teal-600 text-white text-lg font-bold rounded-lg hover:bg-teal-700"
         onClick={() => {
-          router.push("paymentSuccess");
+          router.push("/paymentSuccess");
         }}
       >
         결제하기
