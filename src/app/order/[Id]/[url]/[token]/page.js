@@ -1,22 +1,23 @@
 "use client";
-import nextConfig from "../../../../next.config.js";
-import "../../../../styles/globals.css";
+import "../../../../../../styles/globals.css";
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 export default function Page() {
-  const url = "http://192.168.161.24:8080";
-  const token =
-    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNkIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTczMjc3MDY3MywiZXhwIjoxNzMyODU3MDczfQ.cfAsAod1XFjffFEdVxgkAO8oqDtMw5CkoC5GyzAb0rA";
-  const [menu, setMenu] = useState([]);
+  // const url = "http://192.168.40.24:8080";
+  // const token =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdHJpbmciLCJyb2xlcyI6WyJST0xFX1VTRVIiXSwiaWF0IjoxNzMzMDUxMDE1LCJleHAiOjE3MzMxMzc0MTV9.ToEpEzsREZv20vW-NfY3Y-qs4B-OceL6o0LO1cOIRUQ";
+  const [menu, setMenu] = useState();
   const [selectedItems, setSelectedItems] = useState([]);
   const [orders, setOrders] = useState([]);
   const router = useRouter();
-  const { Id } = useParams();
+  const { Id, url, token } = useParams();
+  const decodedToken = atob(decodeURIComponent(token));
+  const decodedUrl = atob(decodeURIComponent(url));
   useEffect(() => {
-    fetch(`http://localhost:8080/api/menus/store/${Id}`, {
+    fetch(decodedUrl + `/api/menus/store/${Id}`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${decodedToken}`,
         accept: "*/*",
       },
     })
@@ -26,7 +27,9 @@ export default function Page() {
       //   },
       // })
       .then((response) => response.json())
-      .then((data) => setMenu(data))
+      .then((data) => {
+        setMenu(data);
+      })
       .catch((error) => console.log(error));
   }, []);
   // const menu = [
@@ -75,10 +78,10 @@ export default function Page() {
     // );
     console.log(orders);
     //  주문 전송
-    fetch(url + "/api/orders", {
+    fetch(decodedUrl + "/api/orders", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${decodedToken}`,
         accept: "*/*",
         "Content-Type": "application/json",
       },
@@ -87,9 +90,8 @@ export default function Page() {
       }),
     }).catch((error) => console.log(error));
 
-    router.push(`/pay/${Id}?${queryString}`);
+    router.push(`/pay/${Id}/${url}/${token}?${queryString}`);
   };
-
   return menu ? (
     <div className="flex flex-col justify-between min-h-screen">
       <header className="text-center font-bold text-2xl p-4">
