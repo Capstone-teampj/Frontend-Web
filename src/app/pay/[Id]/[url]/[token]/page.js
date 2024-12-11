@@ -60,7 +60,12 @@ export default function PayPage() {
             className="flex justify-between p-3 border-b border-gray-300"
           >
             <span>{item.name}</span>
-            <span>{item.price.toLocaleString()}원</span>
+            <span>
+              {item.discountActive
+                ? item.discountedPrice.toLocaleString()
+                : item.price.toLocaleString()}
+              원
+            </span>
           </div>
         ))}
       </div>

@@ -65,7 +65,11 @@ export default function Page() {
     const selectedMenu = selectedItems.map((id) =>
       menu.find((item) => item.id === id)
     );
-    const totalAmount = selectedMenu.reduce((sum, item) => sum + item.price, 0);
+    const totalAmount = selectedMenu.reduce(
+      (sum, item) =>
+        item.discountActive ? sum + item.discountedPrice : sum + item.price,
+      0
+    );
 
     // 쿼리 문자열로 데이터 전달
     const queryString = new URLSearchParams({
@@ -111,12 +115,28 @@ export default function Page() {
             onClick={() => toggleSelect(item.id)}
           >
             <div className="text-lg font-medium">{item.name}</div>
-            <div className="text-sm font-semibold">
-              {item.price.toLocaleString()}원{/* 프로모션 유무 */}
-              {false && (
-                <span className="ml-2 text-orange-500 text-xs font-bold">
-                  프로모션
+            {/* <div className="text-sm font-semibold">
+              {item.price.toLocaleString()}원
+              {item.discountActive && (
+                <span className="ml-2 text-orange-500 font-bold">
+                  특별할인가: {item.discountedPrice.toLocaleString()}원
                 </span>
+              )}
+            </div> */}
+            <div className="text-sm font-semibold text-right">
+              {/* Price with or without strikethrough */}
+              <div
+                className={
+                  item.discountActive ? "line-through text-gray-500" : ""
+                }
+              >
+                {item.price.toLocaleString()}원
+              </div>
+              {/* Discounted price (only if active) */}
+              {item.discountActive && (
+                <div className="text-orange-500 font-bold">
+                  특별할인가: {item.discountedPrice.toLocaleString()}원
+                </div>
               )}
             </div>
           </div>
